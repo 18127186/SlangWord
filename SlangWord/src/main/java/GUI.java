@@ -133,7 +133,10 @@ public class GUI  implements ActionListener{
         c.gridx = 1;
         c.gridy = 6;  
         c.weighty = 0.1;
-        pane.add(button, c);
+        pane.add(button, c); 
+        button.setActionCommand("              Reset                ");   
+        
+        button.addActionListener(this);
         button = new JButton("    Random slang word    ");
         c.ipady = 20;
         c.ipadx = 80;
@@ -351,9 +354,19 @@ public class GUI  implements ActionListener{
         c.weighty = 0.1;
         
         pane.add(NewDef, c);
+        notification = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 4;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        notification.setText("");
+        notification.setEditable(false);
+        pane.add(notification, c);
         button = new JButton("Add Slang Word");
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 7;
         c.insets = new Insets(5,200,5,200); 
         c.ipady = 20;  
         c.ipadx = 50;  
@@ -363,7 +376,7 @@ public class GUI  implements ActionListener{
         button.addActionListener(this);
         button = new JButton("Exit");
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 8;
         c.insets = new Insets(5,200,5,200); 
         c.ipady = 20;  
         c.ipadx = 50;  
@@ -385,7 +398,7 @@ public class GUI  implements ActionListener{
     public void addComponentsToPaneFunction4WhenError(Container pane){       
         button = new JButton("OverWrite");
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
         c.insets = new Insets(5,200,5,200); 
         c.ipady = 20;  
         c.ipadx = 50;  
@@ -395,7 +408,7 @@ public class GUI  implements ActionListener{
         button.addActionListener(this);
         button = new JButton("Duplicated");
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 6;
         c.insets = new Insets(5,200,5,200); 
         c.ipady = 20;  
         c.ipadx = 50;  
@@ -585,6 +598,41 @@ public class GUI  implements ActionListener{
         frame1.setVisible(true);
     }
     //
+    //function 7
+    public void addComponentsToPaneFunction7(Container pane){       
+        FirstOfAddComponents(pane);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        NewWordReadOnly.setText("Reset Success");
+        NewWordReadOnly.setEditable(false);
+        pane.add(NewWordReadOnly, c);
+        button = new JButton("Exit");
+        c.gridx = 1;
+        c.gridy = 6;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Exit");    
+        button.addActionListener(this);
+    }
+    public void GUIfunction7(){
+        
+        frame1.getContentPane().removeAll();
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setLayout(new GridLayout(15, 15, 15, 5));
+        CreateText();
+        addComponentsToPaneFunction7(frame1.getContentPane());
+        frame1.pack();
+        frame1.setVisible(true);
+    }
+    
+    //
     public void actionPerformed(ActionEvent e)
 	{
 		String strActionCommand = e.getActionCommand();
@@ -650,6 +698,9 @@ public class GUI  implements ActionListener{
                          }
                          else{
                              mapGoc.put(add, def);
+                             newWord.setText("");
+                             NewDef.setText("");
+                             notification.setText("Add success");
                          }
                 }
                 else if (strActionCommand.equals("OverWrite") ){
@@ -657,12 +708,14 @@ public class GUI  implements ActionListener{
                          String add = newWord.getText();
                          String def = NewDef.getText();
                          OverWrite(add, def);
+                         notification.setText("Add success");
                 }
                 else if (strActionCommand.equals("Duplicated") ){
                          //function 4: Add new slang word
                          String add = newWord.getText();
                          String def = NewDef.getText();
                          Duplicated(add, def);
+                         notification.setText("Add success");
                 }
                 else if (strActionCommand.equals("      Edit slang word      ") ){
                          //function 5: Edit slang word
@@ -674,8 +727,9 @@ public class GUI  implements ActionListener{
                          String newkey = NewDef.getText();
                          if(mapGoc.containsKey(oldkey)){
                              mapGoc.put(newkey,mapGoc.get(oldkey));
-                             mapGoc.remove(oldkey);
-                             
+                             mapGoc.remove(oldkey);   
+                             newWord.setText("");
+                             NewDef.setText("");
                             notification.setText("Edit success ");
                         
                         }
@@ -708,6 +762,14 @@ public class GUI  implements ActionListener{
                 else if (strActionCommand.equals("Cancel") ){
                          //function 6: Remove slang word
                          GUIfunction6();
+                }
+                else if (strActionCommand.equals("              Reset                ") ){
+                         //function 7: Reset slang word
+                         GUIfunction7();
+                         mapGoc.clear();
+                         String filePath = new File("src\\main\\java\\slang.txt").getAbsolutePath();
+                         readData rd = new readData();
+                         mapGoc = rd.read(filePath);
                 }
         }
     //Function 1
