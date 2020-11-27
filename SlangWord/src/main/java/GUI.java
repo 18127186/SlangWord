@@ -537,7 +537,7 @@ public class GUI  implements ActionListener{
         button.addActionListener(this);
         button = new JButton("Exit");
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 8;
         c.insets = new Insets(5,200,5,200); 
         c.ipady = 20;  
         c.ipadx = 50;  
@@ -553,6 +553,34 @@ public class GUI  implements ActionListener{
         frame1.setLayout(new GridLayout(15, 15, 15, 5));
         CreateText();
         addComponentsToPaneFunction6(frame1.getContentPane());
+        frame1.pack();
+        frame1.setVisible(true);
+    }
+    public void addComponentsToPaneFunction6Confirm(Container pane){       
+        button = new JButton("Apply");
+        c.gridx = 1;
+        c.gridy = 6;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Apply");    
+        button.addActionListener(this);
+        button = new JButton("Cancel");
+        c.gridx = 1;
+        c.gridy = 7;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Cancel");    
+        button.addActionListener(this);
+    }
+    public void GUIfunction6Confirm(){
+        
+        addComponentsToPaneFunction6Confirm(frame1.getContentPane());
         frame1.pack();
         frame1.setVisible(true);
     }
@@ -662,20 +690,24 @@ public class GUI  implements ActionListener{
                 }
                 else if (strActionCommand.equals("Remove Slang Word") ){
                          //function 6: Remove slang word
+                         GUIfunction6Confirm();
+                }
+                else if (strActionCommand.equals("Apply") ){
+                         //function 6: Remove slang word
                          String key = newWord.getText();
                          if(mapGoc.containsKey(key)){
-                             mapGoc.remove(key);
-                             
+                            mapGoc.remove(key);
+                            GUIfunction6();
                             notification.setText("Remove success ");
-                            
-                            
-
-                        
                         }
                          else{
+                             GUIfunction6();
                              notification.setText("Not Found Slang Word");
-                         }
-                         
+                         }   
+                }
+                else if (strActionCommand.equals("Cancel") ){
+                         //function 6: Remove slang word
+                         GUIfunction6();
                 }
         }
     //Function 1
