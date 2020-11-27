@@ -4,9 +4,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Random;
 import javax.swing.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -145,6 +144,9 @@ public class GUI  implements ActionListener{
         c.gridy = 7;  
         c.weighty = 0.1;
         pane.add(button, c);
+        button.setActionCommand("    Random slang word    ");   
+        
+        button.addActionListener(this);
         button = new JButton("   Game find definition    ");
         c.ipady = 20;
         c.ipadx = 80;
@@ -153,6 +155,9 @@ public class GUI  implements ActionListener{
         c.gridy = 8;  
         c.weighty = 0.1;
         pane.add(button, c);
+        button.setActionCommand("   Game find definition    ");   
+        
+        button.addActionListener(this);
         button = new JButton("  Game find slang word   ");
         c.ipady = 20;
         c.ipadx = 80;
@@ -161,6 +166,9 @@ public class GUI  implements ActionListener{
         c.gridy = 9;  
         c.weighty = 0.1;
         pane.add(button, c);
+        button.setActionCommand("  Game find slang word   ");   
+        
+        button.addActionListener(this);
     }
     public void createAndShowGUI() {
         frame1.getContentPane().removeAll();
@@ -631,7 +639,39 @@ public class GUI  implements ActionListener{
         frame1.pack();
         frame1.setVisible(true);
     }
-    
+    //
+    //function 8
+    public void addComponentsToPaneFunction8(Container pane){       
+        FirstOfAddComponents(pane);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        NewWordReadOnly.setEditable(false);
+        pane.add(NewWordReadOnly, c);
+        button = new JButton("Exit");
+        c.gridx = 1;
+        c.gridy = 6;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Exit");    
+        button.addActionListener(this);
+    }
+    public void GUIfunction8(){
+        
+        frame1.getContentPane().removeAll();
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setLayout(new GridLayout(15, 15, 15, 5));
+        CreateText();
+        addComponentsToPaneFunction8(frame1.getContentPane());
+        frame1.pack();
+        frame1.setVisible(true);
+    }
     //
     public void actionPerformed(ActionEvent e)
 	{
@@ -770,6 +810,15 @@ public class GUI  implements ActionListener{
                          String filePath = new File("src\\main\\java\\slang.txt").getAbsolutePath();
                          readData rd = new readData();
                          mapGoc = rd.read(filePath);
+                }
+                else if (strActionCommand.equals("    Random slang word    ") ){
+                         //function 8: Random
+                         GUIfunction8();
+                         Object[] randomArray = mapGoc.keySet().toArray();
+                         Random generator = new Random();
+                         int n = generator.nextInt(randomArray.length);
+                         Object randomObject = randomArray[n];
+                         NewWordReadOnly.setText(randomObject.toString());
                 }
         }
     //Function 1
