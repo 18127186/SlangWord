@@ -26,19 +26,15 @@ public class GUI  implements ActionListener{
     
     public GridBagConstraints c = new GridBagConstraints();
     public   JButton button;
-    public HashMap<String,String> mapGoc;
-    
+    public HashMap<String,String> mapGoc;  
     public List<String> history = new ArrayList<String>();
-    
     public JTextArea fieldReadOnly ;
-    
     public JFrame frame1 = new JFrame("Slang Word");
     //New SlangWord
-    public  JTextField newWord;
-    public  JTextField NewWordReadOnly;
-    public  JTextField NewDef;
-    public  JTextField NewDefReadOnly;
+    public  JTextField newWord,NewWordReadOnly,NewDef,NewDefReadOnly;
     public JTextField notification;
+    //function 9,10 ABCD
+    public JTextField A,B,C,D;
     //Menu
     public void FirstOfAddComponents(Container pane){
         if (RIGHT_TO_LEFT) 
@@ -673,6 +669,96 @@ public class GUI  implements ActionListener{
         frame1.setVisible(true);
     }
     //
+    
+    //function 9
+    public void addComponentsToPaneFunction9(Container pane){       
+        FirstOfAddComponents(pane);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        NewWordReadOnly = new JTextField();
+        NewWordReadOnly.setEditable(false);
+        pane.add(NewWordReadOnly, c);
+        
+        c.gridx = 1;
+        c.gridy = 1;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        NewDefReadOnly = new JTextField();
+        NewDefReadOnly.setText("Answer: ");
+        NewDefReadOnly.setEditable(false);
+        pane.add(NewDefReadOnly, c);
+              
+        button = new JButton("A. " + A.getText());
+        c.gridx = 1;
+        c.gridy = 2;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("A");    
+        button.addActionListener(this);
+        
+        button = new JButton("B. " + B.getText());
+        c.gridx = 1;
+        c.gridy = 3;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("B");    
+        button.addActionListener(this);
+        
+        button = new JButton("C. " + C.getText());
+        c.gridx = 1;
+        c.gridy = 4;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("C");    
+        button.addActionListener(this);
+        
+        button = new JButton("D. " + D.getText());
+        c.gridx = 1;
+        c.gridy = 5;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("D");    
+        button.addActionListener(this);
+        
+        button = new JButton("Exit");
+        c.gridx = 1;
+        c.gridy = 6;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Exit");    
+        button.addActionListener(this);
+    }
+    public void GUIfunction9(){
+        
+        frame1.getContentPane().removeAll();
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setLayout(new GridLayout(15, 15, 15, 5));
+        addComponentsToPaneFunction9(frame1.getContentPane());
+        frame1.pack();
+        frame1.setVisible(true);
+    }
+    //
     public void actionPerformed(ActionEvent e)
 	{
 		String strActionCommand = e.getActionCommand();
@@ -814,11 +900,32 @@ public class GUI  implements ActionListener{
                 else if (strActionCommand.equals("    Random slang word    ") ){
                          //function 8: Random
                          GUIfunction8();
-                         Object[] randomArray = mapGoc.keySet().toArray();
-                         Random generator = new Random();
-                         int n = generator.nextInt(randomArray.length);
-                         Object randomObject = randomArray[n];
-                         NewWordReadOnly.setText(randomObject.toString());
+                         String KeyRandom = RandomKey();
+                         NewWordReadOnly.setText(KeyRandom);
+                }
+                else if (strActionCommand.equals("   Game find definition    ") ){
+                         //function 9: Game find def 
+                         String KeyRandom = RandomKey();
+                         Random4Def(KeyRandom);
+                         GUIfunction9();
+                         NewWordReadOnly.setText(KeyRandom);
+                         
+                }
+                else if (strActionCommand.equals("A") ){
+                         //function 9: Game find def
+                         CompareAnsAndQues(A, NewWordReadOnly);
+                }
+                else if (strActionCommand.equals("B") ){
+                         //function 9: Game find def
+                         CompareAnsAndQues(B, NewWordReadOnly);
+                }
+                else if (strActionCommand.equals("C") ){
+                         //function 9: Game find def
+                         CompareAnsAndQues(C, NewWordReadOnly);
+                }
+                else if (strActionCommand.equals("D") ){
+                         //function 9: Game find def
+                         CompareAnsAndQues(D, NewWordReadOnly);
                 }
         }
     //Function 1
@@ -901,4 +1008,52 @@ public class GUI  implements ActionListener{
         GUIfunction4();
     }
     //
+    //Function8 : Random key
+    public String RandomKey(){
+            Object[] randomArray = mapGoc.keySet().toArray();
+            Random generator = new Random();
+            int n = generator.nextInt(randomArray.length);
+            Object randomObject = randomArray[n];
+            return randomObject.toString();
+    }
+    public String RandomValue(){
+            Object[] randomArray = mapGoc.keySet().toArray();
+            Random generator = new Random();
+            int n = generator.nextInt(randomArray.length);
+            Object randomObject = randomArray[n];
+            return mapGoc.get(randomObject);
+    }
+    //
+    //Function9 : Random 4 def
+    public void Random4Def(String KeyRandom){
+        Random generator = new Random();
+        int n = generator.nextInt(4) + 1; 
+        String textA,textB,textC,textD;
+        if ( n==1) textA = mapGoc.get(KeyRandom);
+        else textA = RandomValue();
+        if ( n==2) textB = mapGoc.get(KeyRandom);
+        else textB = RandomValue();
+        if ( n==3) textC = mapGoc.get(KeyRandom);
+        else textC = RandomValue();
+        if ( n==4) textD = mapGoc.get(KeyRandom);
+        else textD = RandomValue();
+        
+        A = new JTextField();
+        B = new JTextField();
+        C = new JTextField();
+        D = new JTextField();
+        
+        A.setText(textA);
+        B.setText(textB);
+        C.setText(textC);
+        D.setText(textD);
+    }
+    public void CompareAnsAndQues(JTextField ans, JTextField ques){
+        String question = mapGoc.get(ques.getText());
+        String answer = ans.getText();
+        if (question.equals(answer)){
+                        NewDefReadOnly.setText("Answer: True");
+            }
+        else NewDefReadOnly.setText("Answer: False");
+    }
 }
