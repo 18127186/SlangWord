@@ -879,7 +879,6 @@ public class GUI  implements ActionListener{
                         createAndShowGUI(); // quay ve giao dien chinh
                         }
                 else if (strActionCommand.equals(" Search with definition ") ){
-                        
                         GUIfunction2(); // function 2 giao dien
                         field.setViewportView(null);
                         }
