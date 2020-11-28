@@ -35,6 +35,10 @@ public class GUI  implements ActionListener{
     public JTextField notification;
     //function 9,10 ABCD
     public JTextField A,B,C,D;
+    //function 1,2,3: Fix bug
+    public JList<String> list ;
+    public JScrollPane field= new JScrollPane();;
+    
     //Menu
     public void FirstOfAddComponents(Container pane){
         if (RIGHT_TO_LEFT) 
@@ -258,15 +262,14 @@ public class GUI  implements ActionListener{
         pane.add(button,c);
         button.setActionCommand("Exit");    
         button.addActionListener(this);
-        fieldReadOnly = new JTextArea(15,35);
-        fieldReadOnly.setEditable(false);
+        
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(5,200,5,200); 
         c.ipady = 300;  
         c.ipadx = 300;  
         c.weighty = 0.1;
-        pane.add(fieldReadOnly,c);
+        pane.add(field,c);
     }
   
     public void GUIfunction2(){
@@ -293,15 +296,14 @@ public class GUI  implements ActionListener{
         pane.add(button,c);
         button.setActionCommand("Exit");    
         button.addActionListener(this);
-        fieldReadOnly = new JTextArea(15,35);
-        fieldReadOnly.setEditable(false);
+         
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(5,200,5,200); 
         c.ipady = 300;  
         c.ipadx = 300;  
         c.weighty = 0.1;
-        pane.add(fieldReadOnly,c);
+        pane.add(field,c);
     }
     public void GUIfunction3(){
         
@@ -877,7 +879,9 @@ public class GUI  implements ActionListener{
                         createAndShowGUI(); // quay ve giao dien chinh
                         }
                 else if (strActionCommand.equals(" Search with definition ") ){
+                        
                         GUIfunction2(); // function 2 giao dien
+                        list.removeAll();
                         }
                 else if(strActionCommand.equals("Search definition")){ //Function 1: Search definition from key
                             String find = searchWord.getText();
@@ -898,26 +902,22 @@ public class GUI  implements ActionListener{
                             List<String> ans= null;
                             if (find.equals("")){
                                 searchWord.requestFocus();
-                                }
+                            }
                             else ans = searchDef(mapGoc, find);
                             String text = null;
-                            for(int i=0;i<ans.size();i++)
-                            {
-                                if (text == null) text = ans.get(i);
-                                else text = text + "\n" + ans.get(i);
-                            }
-                            fieldReadOnly.setText(text);      
+                            if (ans.size()== 0 ) ans.add("Not found!!!");
+                            list = new JList<String>(ans.toArray(new String[ans.size()]));
+
+                            field.setViewportView(list);
+                            list.setLayoutOrientation(JList.VERTICAL);    
                 }
                 else if (strActionCommand.equals("    History of search     ") ){
+                        
+                        list = new JList<String>(history.toArray(new String[history.size()]));
+                        
+                        field.setViewportView(list);
+                        list.setLayoutOrientation(JList.VERTICAL);
                         GUIfunction3(); //function 3: Giao dien
-                        String text = null;
-                        fieldReadOnly.setText(""); 
-                        for(int i=0;i<history.size();i++)
-                            {
-                                if (text == null) text = history.get(i);
-                                else text = text + "\n" + history.get(i);
-                            }
-                        fieldReadOnly.setText(text); 
                 }
                 else if (strActionCommand.equals("      Add slang word      ") ){
                         GUIfunction4(); //function 4: Giao dien
@@ -1060,6 +1060,7 @@ public class GUI  implements ActionListener{
                          NewWordReadOnly.setText(ValueRandom[1]);
                          newWord = new JTextField(); // Muon tam cai newWord de luu tru key ket qua va khoi tao bien moi
                          newWord.setText(ValueRandom[0]);
+                         
                 }
                 else if (strActionCommand.equals("A10") ){
                          //function 10: Game find slang
