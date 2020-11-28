@@ -881,7 +881,7 @@ public class GUI  implements ActionListener{
                 else if (strActionCommand.equals(" Search with definition ") ){
                         
                         GUIfunction2(); // function 2 giao dien
-                        list.removeAll();
+                        field.setViewportView(null);
                         }
                 else if(strActionCommand.equals("Search definition")){ //Function 1: Search definition from key
                             String find = searchWord.getText();
