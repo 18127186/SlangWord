@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -930,6 +932,7 @@ public class GUI  implements ActionListener{
                          }
                          else{
                              mapGoc.put(add, def);
+                             writeFileWhenChangeMap();
                              newWord.setText("");
                              NewDef.setText("");
                              notification.setText("Add success");
@@ -940,6 +943,7 @@ public class GUI  implements ActionListener{
                          String add = newWord.getText();
                          String def = NewDef.getText();
                          OverWrite(add, def);
+                         writeFileWhenChangeMap();
                          notification.setText("Add success");
                 }
                 else if (strActionCommand.equals("Duplicated") ){
@@ -947,6 +951,7 @@ public class GUI  implements ActionListener{
                          String add = newWord.getText();
                          String def = NewDef.getText();
                          Duplicated(add, def);
+                         writeFileWhenChangeMap();
                          notification.setText("Add success");
                 }
                 else if (strActionCommand.equals("      Edit slang word      ") ){
@@ -962,6 +967,7 @@ public class GUI  implements ActionListener{
                              mapGoc.remove(oldkey);   
                              newWord.setText("");
                              NewDef.setText("");
+                             writeFileWhenChangeMap();
                             notification.setText("Edit success ");
                         
                         }
@@ -984,6 +990,7 @@ public class GUI  implements ActionListener{
                          if(mapGoc.containsKey(key)){
                             mapGoc.remove(key);
                             GUIfunction6();
+                            writeFileWhenChangeMap();
                             notification.setText("Remove success ");
                         }
                          else{
@@ -999,7 +1006,7 @@ public class GUI  implements ActionListener{
                          //function 7: Reset slang word
                          GUIfunction7();
                          mapGoc.clear();
-                         String filePath = new File("src\\main\\java\\slang.txt").getAbsolutePath();
+                         String filePath = new File("src\\main\\java\\slangwordgoc.txt").getAbsolutePath();
                          readData rd = new readData();
                          mapGoc = rd.read(filePath);
                 }
@@ -1078,6 +1085,25 @@ public class GUI  implements ActionListener{
                          CompareAnsAndQues10(D, newWord);
                 }
         }
+    //
+    //Write file when change map
+    public void writeFileWhenChangeMap(){
+        try {
+            String filePath = new File("src\\main\\java\\slang.txt").getAbsolutePath();
+            File fw = new File(filePath);
+            
+            OutputStream outputStream = new FileOutputStream(fw);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            outputStreamWriter.write("Slag`Meaning\n");
+            for (String key : mapGoc.keySet()) {
+                outputStreamWriter.write(key + "`" + mapGoc.get(key) + "\n");
+               }
+            outputStreamWriter.flush();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    //
     //Function 1
     public String searchWord(HashMap<String,String> map,String find){
         String ans ="";
