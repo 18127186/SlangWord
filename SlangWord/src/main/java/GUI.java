@@ -436,6 +436,85 @@ public class GUI  implements ActionListener{
     }
     //
     //function 5
+    public void addComponentsToPaneFunction5EditValue(Container pane){       
+        FirstOfAddComponents(pane);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        NewWordReadOnly.setText("Slang Word");
+        NewWordReadOnly.setEditable(false);
+        pane.add(NewWordReadOnly, c);
+        
+        c.gridx = 1;
+        c.gridy = 1;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        pane.add(newWord, c);
+         c.gridx = 1;
+        c.gridy = 2;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        NewDefReadOnly.setText("New Meaning");
+        NewDefReadOnly.setEditable(false);
+        pane.add(NewDefReadOnly, c);
+        
+        c.gridx = 1;
+        c.gridy = 3;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        
+        pane.add(NewDef, c);
+        
+        notification = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 4;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 300;  
+        c.weighty = 0.1;
+        notification.setText("");
+        notification.setEditable(false);
+        pane.add(notification, c);
+        button = new JButton("Edit");
+        c.gridx = 1;
+        c.gridy = 5;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Edit Meaning");    
+        button.addActionListener(this);
+        button = new JButton("Exit");
+        c.gridx = 1;
+        c.gridy = 6;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Exit");    
+        button.addActionListener(this);
+    } //Edit value
+    public void GUIfunction5EditValue(){
+        
+        frame1.getContentPane().removeAll();
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setLayout(new GridLayout(15, 15, 15, 5));
+        CreateText();
+        addComponentsToPaneFunction5EditValue(frame1.getContentPane());
+        frame1.pack();
+        frame1.setVisible(true);
+    } // Edit Value
     public void addComponentsToPaneFunction5(Container pane){       
         FirstOfAddComponents(pane);
         c.gridx = 1;
@@ -504,7 +583,7 @@ public class GUI  implements ActionListener{
         pane.add(button,c);
         button.setActionCommand("Exit");    
         button.addActionListener(this);
-    }
+    } //Edit key
     public void GUIfunction5(){
         
         frame1.getContentPane().removeAll();
@@ -512,6 +591,47 @@ public class GUI  implements ActionListener{
         frame1.setLayout(new GridLayout(15, 15, 15, 5));
         CreateText();
         addComponentsToPaneFunction5(frame1.getContentPane());
+        frame1.pack();
+        frame1.setVisible(true);
+    } // Edit key
+    public void addComponentsToPaneFunction5Menu(Container pane){       
+        button = new JButton("Edit Slang Word");
+        c.gridx = 1;
+        c.gridy = 5;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Edit Slang Word Menu");    
+        button.addActionListener(this);
+        button = new JButton("Edit Meaning");
+        c.gridx = 1;
+        c.gridy = 5;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Edit Meaning Menu");    
+        button.addActionListener(this);
+        button = new JButton("Exit");
+        c.gridx = 1;
+        c.gridy = 6;
+        c.insets = new Insets(5,200,5,200); 
+        c.ipady = 20;  
+        c.ipadx = 50;  
+        c.weighty = 0.1;
+        pane.add(button,c);
+        button.setActionCommand("Exit");    
+        button.addActionListener(this);
+    }
+    public void GUIfunction5Menu(){     
+        frame1.getContentPane().removeAll();
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setLayout(new GridLayout(15, 15, 15, 5));
+        CreateText();
+        addComponentsToPaneFunction5Menu(frame1.getContentPane());
         frame1.pack();
         frame1.setVisible(true);
     }
@@ -926,6 +1046,7 @@ public class GUI  implements ActionListener{
                 else if (strActionCommand.equals("Add Slang Word") ){
                          //function 4: Add new slang word
                          String add = newWord.getText();
+                         add = add.toUpperCase();
                          String def = NewDef.getText();
                          if(mapGoc.containsKey(add)){
                              GUIfunctionwWhenAddError();
@@ -941,6 +1062,7 @@ public class GUI  implements ActionListener{
                 else if (strActionCommand.equals("OverWrite") ){
                          //function 4: Add new slang word
                          String add = newWord.getText();
+                         add = add.toUpperCase();
                          String def = NewDef.getText();
                          OverWrite(add, def);
                          writeFileWhenChangeMap();
@@ -949,6 +1071,7 @@ public class GUI  implements ActionListener{
                 else if (strActionCommand.equals("Duplicated") ){
                          //function 4: Add new slang word
                          String add = newWord.getText();
+                         add = add.toUpperCase();
                          String def = NewDef.getText();
                          Duplicated(add, def);
                          writeFileWhenChangeMap();
@@ -956,12 +1079,39 @@ public class GUI  implements ActionListener{
                 }
                 else if (strActionCommand.equals("      Edit slang word      ") ){
                          //function 5: Edit slang word
+                         GUIfunction5Menu();
+                }
+                else if (strActionCommand.equals("Edit Slang Word Menu") ){
+                         //function 5: Edit slang word
                          GUIfunction5();
+                }
+                else if (strActionCommand.equals("Edit Meaning Menu") ){
+                         //function 5: Edit slang word
+                         GUIfunction5EditValue();
+                }
+                else if (strActionCommand.equals("Edit Meaning") ){
+                         //function 5: Edit slang word
+                         String key = newWord.getText();
+                         key = key.toUpperCase();
+                         String newdef = NewDef.getText();
+                         if(mapGoc.containsKey(key)){
+                            
+                            mapGoc.put(key, newdef);
+                            writeFileWhenChangeMap();
+                            newWord.setText("");
+                            NewDef.setText("");
+                            notification.setText("Edit success");
+                        }
+                         else{
+                             notification.setText("Not Found Slang Word");
+                         }
                 }
                 else if (strActionCommand.equals("Edit Slang Word") ){
                          //function 5: Edit slang word
                          String oldkey = newWord.getText();
+                         oldkey = oldkey.toUpperCase();
                          String newkey = NewDef.getText();
+                         newkey = newkey.toUpperCase();
                          if(mapGoc.containsKey(oldkey)){
                              mapGoc.put(newkey,mapGoc.get(oldkey));
                              mapGoc.remove(oldkey);   
@@ -987,6 +1137,7 @@ public class GUI  implements ActionListener{
                 else if (strActionCommand.equals("Apply") ){
                          //function 6: Remove slang word
                          String key = newWord.getText();
+                         key = key.toUpperCase();
                          if(mapGoc.containsKey(key)){
                             mapGoc.remove(key);
                             GUIfunction6();
@@ -1107,18 +1258,26 @@ public class GUI  implements ActionListener{
     //Function 1
     public String searchWord(HashMap<String,String> map,String find){
         String ans ="";
-        if (map.containsKey(find)){
-            ans = map.get(find);
+        find = find.toUpperCase();
+        String search;
+        for (String i : map.keySet()) {
+            search = i.toUpperCase();
+            if (search.equals(find)) {
+                ans = map.get(i);
+            }
         }
-        else ans ="Not found!!!";
+        if (ans == "") ans ="Not found!!!";
         return ans;
         }
     //
     //Function 2
     public static List<String> getKey(HashMap<String, String> map, String value) {
         List<String> ans = new ArrayList<String>();
+        value = value.toUpperCase();
+        String search;
         for (String i : map.keySet()) {
-            if (map.get(i).contains(value)) {
+            search = map.get(i).toUpperCase();
+            if (search.contains(value)) {
                 ans.add(i);
             }
         }
