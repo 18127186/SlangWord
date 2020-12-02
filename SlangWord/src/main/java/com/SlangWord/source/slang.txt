@@ -1168,7 +1168,7 @@ DAT`That
 DAW`Digital Audio Workstation
 THOU`You
 THOT`HOE
-<>`<> | <>
+<>`Not equal| No comment
 :|`Disgust| disapproval| not funny
 DBA`Don't Bother Asking
 IYTE`All right
@@ -7637,3 +7637,4 @@ SCA`Scandal
 BAU`Business As Usual
 SCH`School
 BAY`Baby
+SCO`San Fransisco

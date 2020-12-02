@@ -1,4 +1,4 @@
-MainProject$1.class
-MainProject.class
-readData.class
-GUI.class
+com\SlangWord\readData.class
+com\SlangWord\MainProject$1.class
+com\SlangWord\MainProject.class
+com\SlangWord\GUI.class

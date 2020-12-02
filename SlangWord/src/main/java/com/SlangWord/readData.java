@@ -1,3 +1,5 @@
+package com.SlangWord;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,15 +13,16 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.File;
 import java.util.HashMap;
-import java.util.Set;
 public class readData {
     public HashMap<String,String> read(String filePath) {
         BufferedReader br;
+        FileReader fr;
         HashMap<String,String> mapWord = new HashMap<String, String>();
         try {
-            br = new BufferedReader(new FileReader(filePath));       
+            fr = new FileReader(filePath);
+            br = new BufferedReader(fr);
+            
             String textInALine = br.readLine();
             String[] words;
             while ((textInALine) != null) {
@@ -28,8 +31,9 @@ public class readData {
                     words = textInALine.split("`");
                     mapWord.put(words[0], words[1]);       
              }
-            
-         } catch (IOException e) {
+            fr.close();
+            br.close();
+        } catch (IOException e) {
              System.out.print("Khong co file");
              e.printStackTrace();
         }

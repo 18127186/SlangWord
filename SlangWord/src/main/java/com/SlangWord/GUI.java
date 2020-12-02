@@ -1,3 +1,5 @@
+package com.SlangWord;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -1157,9 +1159,10 @@ public class GUI  implements ActionListener{
                          //function 7: Reset slang word
                          GUIfunction7();
                          mapGoc.clear();
-                         String filePath = new File("src\\main\\java\\slangwordgoc.txt").getAbsolutePath();
+                         String filePath = new File("src\\main\\java\\com\\SlangWord\\source\\slangwordgoc.txt").getAbsolutePath();
                          readData rd = new readData();
                          mapGoc = rd.read(filePath);
+                         writeFileWhenChangeMap();
                 }
                 else if (strActionCommand.equals("    Random slang word    ") ){
                          //function 8: Random
@@ -1240,15 +1243,15 @@ public class GUI  implements ActionListener{
     //Write file when change map
     public void writeFileWhenChangeMap(){
         try {
-            String filePath = new File("src\\main\\java\\slang.txt").getAbsolutePath();
+            String filePath = new File("src\\main\\java\\com\\SlangWord\\source\\slang.txt").getAbsolutePath();
             File fw = new File(filePath);
             
             OutputStream outputStream = new FileOutputStream(fw);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
             outputStreamWriter.write("Slag`Meaning\n");
-            for (String key : mapGoc.keySet()) {
+            for (String key : mapGoc.keySet()) {                
                 outputStreamWriter.write(key + "`" + mapGoc.get(key) + "\n");
-               }
+            }
             outputStreamWriter.flush();
         } catch (Exception e) {
             System.out.println(e);
@@ -1296,7 +1299,7 @@ public class GUI  implements ActionListener{
         history.clear();
         try{
             
-            String filePath = new File("src\\main\\java\\history.txt").getAbsolutePath();
+            String filePath = new File("src\\main\\java\\com\\SlangWord\\source\\history.txt").getAbsolutePath();
             file = new File(filePath);
             isCreat = file.createNewFile();
             if (isCreat)
@@ -1316,7 +1319,7 @@ public class GUI  implements ActionListener{
     }
     public void writeFile(){
         try {
-            String filePath = new File("src\\main\\java\\history.txt").getAbsolutePath();
+            String filePath = new File("src\\main\\java\\com\\SlangWord\\source\\history.txt").getAbsolutePath();
             File fw = new File(filePath);
             
             OutputStream outputStream = new FileOutputStream(fw);
