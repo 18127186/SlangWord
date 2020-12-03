@@ -11,7 +11,6 @@ package com.SlangWord;
  * @author trand
  */
 import java.io.File;
-import java.util.HashMap;
 public class MainProject {
     public static void main(String[] args) {
         String filePath = new File("src\\main\\java\\com\\SlangWord\\source\\slang.txt").getAbsolutePath();

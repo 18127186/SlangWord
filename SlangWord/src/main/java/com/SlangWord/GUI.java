@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -1027,7 +1025,6 @@ public class GUI  implements ActionListener{
                                 searchWord.requestFocus();
                             }
                             else ans = searchDef(mapGoc, find);
-                            String text = null;
                             if (ans.size()== 0 ) ans.add("Not found!!!");
                             list = new JList<String>(ans.toArray(new String[ans.size()]));
 
@@ -1253,6 +1250,7 @@ public class GUI  implements ActionListener{
                 outputStreamWriter.write(key + "`" + mapGoc.get(key) + "\n");
             }
             outputStreamWriter.flush();
+            outputStreamWriter.close();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -1310,7 +1308,8 @@ public class GUI  implements ActionListener{
                 while ((textInALine) != null) {
                     history.add(textInALine);
                     textInALine = br.readLine();
-             }
+                }
+                br.close();
             }
         }
         catch (Exception e){
@@ -1329,6 +1328,7 @@ public class GUI  implements ActionListener{
                 if(i < history.size()-1) outputStreamWriter.write("\n");
             }
             outputStreamWriter.flush();
+            outputStreamWriter.close();
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -114,9 +114,3 @@ tdp18
 tdp18
 bay
 bay
-bay
-bay
-bay
-bay
-bay
-bay
